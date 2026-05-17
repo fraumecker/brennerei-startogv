@@ -7,8 +7,8 @@
 
   <link rel="manifest" href="admin-manifest.webmanifest">
   <link rel="icon" href="icon-512.png">
-  <meta name="theme-color" content="#ff00cc">
-  <meta name="background-color" content="#ff00cc">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="background-color" content="#ffffff">
 
   <style>
     html,
@@ -18,7 +18,7 @@
       width: 100%;
       height: 100%;
       overflow: hidden;
-      background: #ff00cc;
+      background: #ffffff;
     }
 
     .app-frame-wrapper {
@@ -26,7 +26,7 @@
       height: 100vh;
       overflow: hidden;
       position: relative;
-      background: #ff00cc;
+      background: #ffffff;
     }
 
     .app-frame {
@@ -36,8 +36,9 @@
       position: absolute;
       top: -45px;
       left: 0;
-      background: #ff00cc;
+      background: #ffffff;
       opacity: 1;
+      display: block;
     }
   </style>
 </head>
@@ -72,8 +73,7 @@
     appParams.set('mode', mode);
     appParams.set('origin', origin || 'admin');
 
-    const frame = document.getElementById('appFrame');
-    frame.src = WEBAPP_URL + '?' + appParams.toString();
+    document.getElementById('appFrame').src = WEBAPP_URL + '?' + appParams.toString();
   </script>
 </body>
 </html>
