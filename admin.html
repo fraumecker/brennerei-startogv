@@ -31,38 +31,13 @@
 
     .app-frame {
       width: 100%;
-      height: calc(100vh + 80px);
+      height: calc(100vh + 45px);
       border: 0;
       position: absolute;
-      top: -80px;
+      top: -45px;
       left: 0;
       background: #ff00cc;
-      opacity: 0;
-      transition: opacity 0.12s ease-in-out;
-    }
-
-    .app-frame.ready {
       opacity: 1;
-    }
-
-    .loading-cover {
-      position: fixed;
-      inset: 0;
-      z-index: 10;
-      background: #ff00cc;
-      color: #ffffff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: Arial, sans-serif;
-      font-size: 22px;
-      font-weight: 900;
-      letter-spacing: 0.03em;
-      text-align: center;
-    }
-
-    .loading-cover.hidden {
-      display: none;
     }
   </style>
 </head>
@@ -72,14 +47,25 @@
     <iframe id="appFrame" class="app-frame" title="OGV Admin"></iframe>
   </div>
 
-  <div id="loadingCover" class="loading-cover">OGV Admin wird geladen</div>
-
   <script>
     const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbw8wDAqfoUfqDwFcFz2mJyXPRVDcy1LWwmVrmQ_49Lx_x8_3KtjZovKxKc0WhF_3uTEyQ/exec';
+
     const params = new URLSearchParams(window.location.search);
-    const allowedModes = new Set(['admin', 'index', 'vorplanung', 'brandplanung', 'maischeannahme', 'brennfreigabe', 'leitstand', 'zollkontakte']);
+
+    const allowedModes = new Set([
+      'admin',
+      'index',
+      'vorplanung',
+      'brandplanung',
+      'maischeannahme',
+      'brennfreigabe',
+      'leitstand',
+      'zollkontakte'
+    ]);
+
     const requestedMode = (params.get('mode') || 'admin').trim().toLowerCase();
     const mode = allowedModes.has(requestedMode) ? requestedMode : 'admin';
+
     const origin = (params.get('origin') || 'admin').trim().toLowerCase();
 
     const appParams = new URLSearchParams();
@@ -87,17 +73,6 @@
     appParams.set('origin', origin || 'admin');
 
     const frame = document.getElementById('appFrame');
-    const cover = document.getElementById('loadingCover');
-    let lastLoadTimer = null;
-
-    frame.addEventListener('load', function() {
-      if (lastLoadTimer) window.clearTimeout(lastLoadTimer);
-      lastLoadTimer = window.setTimeout(function() {
-        frame.classList.add('ready');
-        cover.classList.add('hidden');
-      }, 1100);
-    });
-
     frame.src = WEBAPP_URL + '?' + appParams.toString();
   </script>
 </body>
