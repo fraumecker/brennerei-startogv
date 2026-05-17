@@ -1,1 +1,53 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>Brennerei Admin</title>
+
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon-512.png">
+  <meta name="theme-color" content="#ff00cc">
+  <meta name="background-color" content="#ff00cc">
+
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #ff00cc;
+    }
+
+    .app-frame-wrapper {
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      background: #ff00cc;
+    }
+
+    .app-frame {
+      width: 100%;
+      height: calc(100vh + 55px);
+      border: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: #ff00cc;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app-frame-wrapper">
+    <iframe
+      class="app-frame"
+      src="https://script.google.com/macros/s/AKfycbw8wDAqfoUfqDwFcFz2mJyXPRVDcy1LWwmVrmQ_49Lx_x8_3KtjZovKxKc0WhF_3uTEyQ/exec?mode=admin">
+    </iframe>
+  </div>
+</body>
+</html>
