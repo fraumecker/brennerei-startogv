@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>OGV Brenner</title>
 
   <link rel="manifest" href="manifest.webmanifest">
@@ -39,15 +38,62 @@
       left: 0;
       background: #ff00cc;
     }
+
+    .loading-cover {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      background: #ff00cc;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Arial, sans-serif;
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: 0.03em;
+      text-align: center;
+    }
+
+    .loading-cover.hidden {
+      display: none;
+    }
   </style>
 </head>
 
 <body>
   <div class="app-frame-wrapper">
-    <iframe
-      class="app-frame"
-      src="https://script.google.com/macros/s/AKfycbw8wDAqfoUfqDwFcFz2mJyXPRVDcy1LWwmVrmQ_49Lx_x8_3KtjZovKxKc0WhF_3uTEyQ/exec">
-    </iframe>
+    <iframe id="appFrame" class="app-frame" title="OGV Brenner"></iframe>
   </div>
+
+  <div id="loadingCover" class="loading-cover">OGV wird geladen</div>
+
+  <script>
+    const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbw8wDAqfoUfqDwFcFz2mJyXPRVDcy1LWwmVrmQ_49Lx_x8_3KtjZovKxKc0WhF_3uTEyQ/exec';
+    const params = new URLSearchParams(window.location.search);
+    const mode = (params.get('mode') || '').trim();
+    const origin = (params.get('origin') || '').trim();
+
+    let iframeUrl = WEBAPP_URL;
+    const appParams = new URLSearchParams();
+
+    if (mode) appParams.set('mode', mode);
+    if (origin) appParams.set('origin', origin);
+
+    if ([...appParams.keys()].length) {
+      iframeUrl += '?' + appParams.toString();
+    }
+
+    const frame = document.getElementById('appFrame');
+    const cover = document.getElementById('loadingCover');
+
+    frame.addEventListener('load', function() {
+      window.setTimeout(function() {
+        cover.classList.add('hidden');
+      }, 250);
+    });
+
+    frame.src = iframeUrl;
+  </script>
 </body>
 </html>
