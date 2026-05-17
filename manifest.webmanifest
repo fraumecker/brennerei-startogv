@@ -1,11 +1,11 @@
 {
   "name": "Brennerei",
-  "short_name": "Brennerei",
+  "short_name": "OGV",
   "start_url": "/brennerei-startogv/",
   "scope": "/brennerei-startogv/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#111111",
+  "background_color": "#ff00cc",
+  "theme_color": "#ff00cc",
   "icons": [
     {
       "src": "icon-512.png",
