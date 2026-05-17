@@ -7,8 +7,8 @@
 
   <link rel="manifest" href="admin-manifest.webmanifest">
   <link rel="icon" href="icon-512.png">
-  <meta name="theme-color" content="#ffffff">
-  <meta name="background-color" content="#ffffff">
+  <meta name="theme-color" content="#ff00cc">
+  <meta name="background-color" content="#ff00cc">
 
   <style>
     html,
@@ -18,7 +18,7 @@
       width: 100%;
       height: 100%;
       overflow: hidden;
-      background: #ffffff;
+      background: #ff00cc;
     }
 
     .app-frame-wrapper {
@@ -26,7 +26,7 @@
       height: 100vh;
       overflow: hidden;
       position: relative;
-      background: #ffffff;
+      background: #ff00cc;
     }
 
     .app-frame {
@@ -36,7 +36,7 @@
       position: absolute;
       top: -45px;
       left: 0;
-      background: #ffffff;
+      background: #ff00cc;
       opacity: 1;
       display: block;
     }
@@ -66,14 +66,19 @@
 
     const requestedMode = (params.get('mode') || 'admin').trim().toLowerCase();
     const mode = allowedModes.has(requestedMode) ? requestedMode : 'admin';
-
     const origin = (params.get('origin') || 'admin').trim().toLowerCase();
 
     const appParams = new URLSearchParams();
     appParams.set('mode', mode);
     appParams.set('origin', origin || 'admin');
 
-    document.getElementById('appFrame').src = WEBAPP_URL + '?' + appParams.toString();
+    const zielUrl = WEBAPP_URL + '?' + appParams.toString();
+
+    if (mode !== 'admin') {
+      window.location.replace(zielUrl);
+    } else {
+      document.getElementById('appFrame').src = zielUrl;
+    }
   </script>
 </body>
 </html>
