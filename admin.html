@@ -37,6 +37,12 @@
       top: -80px;
       left: 0;
       background: #ff00cc;
+      opacity: 0;
+      transition: opacity 0.12s ease-in-out;
+    }
+
+    .app-frame.ready {
+      opacity: 1;
     }
 
     .loading-cover {
@@ -71,25 +77,28 @@
   <script>
     const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbw8wDAqfoUfqDwFcFz2mJyXPRVDcy1LWwmVrmQ_49Lx_x8_3KtjZovKxKc0WhF_3uTEyQ/exec';
     const params = new URLSearchParams(window.location.search);
-    const mode = (params.get('mode') || 'admin').trim();
-    const origin = (params.get('origin') || 'admin').trim();
+    const allowedModes = new Set(['admin', 'index', 'vorplanung', 'brandplanung', 'maischeannahme', 'brennfreigabe', 'leitstand', 'zollkontakte']);
+    const requestedMode = (params.get('mode') || 'admin').trim().toLowerCase();
+    const mode = allowedModes.has(requestedMode) ? requestedMode : 'admin';
+    const origin = (params.get('origin') || 'admin').trim().toLowerCase();
 
     const appParams = new URLSearchParams();
-    appParams.set('mode', mode || 'admin');
+    appParams.set('mode', mode);
     appParams.set('origin', origin || 'admin');
-
-    const iframeUrl = WEBAPP_URL + '?' + appParams.toString();
 
     const frame = document.getElementById('appFrame');
     const cover = document.getElementById('loadingCover');
+    let lastLoadTimer = null;
 
     frame.addEventListener('load', function() {
-      window.setTimeout(function() {
+      if (lastLoadTimer) window.clearTimeout(lastLoadTimer);
+      lastLoadTimer = window.setTimeout(function() {
+        frame.classList.add('ready');
         cover.classList.add('hidden');
-      }, 250);
+      }, 1100);
     });
 
-    frame.src = iframeUrl;
+    frame.src = WEBAPP_URL + '?' + appParams.toString();
   </script>
 </body>
 </html>
