@@ -1,0 +1,16 @@
+{
+  "name": "OGV Admin",
+  "short_name": "OGV Admin",
+  "start_url": "admin.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#ff00cc",
+  "theme_color": "#ff00cc",
+  "icons": [
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
