@@ -31,10 +31,11 @@
 
     .app-frame {
       width: 100%;
-      height: calc(100vh + 45px);
+      /* Macht den Frame höher, um das Banner nach UNTEN wegzuschieben */
+      height: calc(100vh + 45px); 
       border: 0;
       position: absolute;
-      top: -45px;
+      top: 0; /* Bleibt oben bündig */
       left: 0;
       background: #ff00cc;
       opacity: 1;
@@ -45,7 +46,9 @@
 
 <body>
   <div class="app-frame-wrapper">
-    <iframe id="appFrame" class="app-frame" title="OGV Admin"></iframe>
+    <iframe id="appFrame" class="app-frame" title="OGV Admin"
+            sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-modals allow-downloads"
+            allow="storage-access"></iframe>
   </div>
 
   <script>
