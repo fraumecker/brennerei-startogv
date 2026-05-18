@@ -4,10 +4,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>OGV Admin</title>
-  <meta http-equiv="refresh" content="0; url=https://script.google.com/macros/s/AKfycbw8wDAqfoUfqDwFcFz2mJyXPRVDcy1LWwmVrmQ_49Lx_x8_3KtjZovKxKc0WhF_3uTEyQ/exec?mode=admin">
+
   <script>
-    window.location.replace('https://script.google.com/macros/s/AKfycbw8wDAqfoUfqDwFcFz2mJyXPRVDcy1LWwmVrmQ_49Lx_x8_3KtjZovKxKc0WhF_3uTEyQ/exec?mode=admin');
+    const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbw8wDAqfoUfqDwFcFz2mJyXPRVDcy1LWwmVrmQ_49Lx_x8_3KtjZovKxKc0WhF_3uTEyQ/exec';
+
+    const params = new URLSearchParams(window.location.search);
+
+    const allowedModes = new Set([
+      'admin',
+      'index',
+      'vorplanung',
+      'brandplanung',
+      'maischeannahme',
+      'brennfreigabe',
+      'leitstand',
+      'zollkontakte'
+    ]);
+
+    const requestedMode = (params.get('mode') || 'admin').trim().toLowerCase();
+    const mode = allowedModes.has(requestedMode) ? requestedMode : 'admin';
+    const origin = (params.get('origin') || 'admin').trim().toLowerCase();
+
+    const appParams = new URLSearchParams();
+    appParams.set('mode', mode);
+    appParams.set('origin', origin || 'admin');
+
+    window.location.replace(WEBAPP_URL + '?' + appParams.toString());
   </script>
 </head>
+
 <body></body>
 </html>
