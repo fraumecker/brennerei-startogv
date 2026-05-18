@@ -31,11 +31,11 @@
 
     .app-frame {
       width: 100%;
-      /* Macht den Frame höher, um das Banner nach UNTEN wegzuschieben */
+      /* Macht den Frame höher, um das Google-Banner nach UNTEN wegzuschieben */
       height: calc(100vh + 55px); 
       border: 0;
       position: absolute;
-      top: 0; /* Bleibt oben bündig */
+      top: 0; 
       left: 0;
       background: #ff00cc;
     }
@@ -65,7 +65,7 @@
 <body>
   <div class="app-frame-wrapper">
     <iframe id="appFrame" class="app-frame" title="OGV Brenner"
-            sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-modals allow-downloads"
+            sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-modals allow-downloads allow-top-navigation allow-popups-to-escape-sandbox"
             allow="storage-access"></iframe>
   </div>
 
