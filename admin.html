@@ -11,45 +11,25 @@
   <meta name="background-color" content="#ff00cc">
 
   <style>
-    html,
-    body {
+    html, body {
       margin: 0;
       padding: 0;
       width: 100%;
       height: 100%;
-      overflow: hidden;
       background: #ff00cc;
-    }
-
-    .app-frame-wrapper {
-      width: 100%;
-      height: 100vh;
-      overflow: hidden;
-      position: relative;
-      background: #ff00cc;
-    }
-
-    .app-frame {
-      width: 100%;
-      /* Macht den Frame höher, um das Google-Banner nach UNTEN wegzuschieben */
-      height: calc(100vh + 55px); 
-      border: 0;
-      position: absolute;
-      top: 0; 
-      left: 0;
-      background: #ff00cc;
-      opacity: 1;
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      font-size: 22px;
+      font-weight: 900;
     }
   </style>
 </head>
 
 <body>
-  <div class="app-frame-wrapper">
-    <iframe id="appFrame" class="app-frame" title="OGV Admin"
-            sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-modals allow-downloads allow-top-navigation allow-popups-to-escape-sandbox"
-            allow="storage-access"></iframe>
-  </div>
+  <div>OGV Admin wird geladen...</div>
 
   <script>
     const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbw8wDAqfoUfqDwFcFz2mJyXPRVDcy1LWwmVrmQ_49Lx_x8_3KtjZovKxKc0WhF_3uTEyQ/exec';
@@ -75,13 +55,9 @@
     appParams.set('mode', mode);
     appParams.set('origin', origin || 'admin');
 
+    // Wir leiten JEDEN Modus direkt an Google weiter – ohne blockierenden iFrame!
     const zielUrl = WEBAPP_URL + '?' + appParams.toString();
-
-    if (mode !== 'admin') {
-      window.location.replace(zielUrl);
-    } else {
-      document.getElementById('appFrame').src = zielUrl;
-    }
+    window.location.replace(zielUrl);
   </script>
 </body>
 </html>
