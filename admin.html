@@ -29,35 +29,7 @@
 </head>
 
 <body>
-  <div>OGV Admin wird geladen...</div>
+  
 
-  <script>
-    const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbw8wDAqfoUfqDwFcFz2mJyXPRVDcy1LWwmVrmQ_49Lx_x8_3KtjZovKxKc0WhF_3uTEyQ/exec';
-
-    const params = new URLSearchParams(window.location.search);
-
-    const allowedModes = new Set([
-      'admin',
-      'index',
-      'vorplanung',
-      'brandplanung',
-      'maischeannahme',
-      'brennfreigabe',
-      'leitstand',
-      'zollkontakte'
-    ]);
-
-    const requestedMode = (params.get('mode') || 'admin').trim().toLowerCase();
-    const mode = allowedModes.has(requestedMode) ? requestedMode : 'admin';
-    const origin = (params.get('origin') || 'admin').trim().toLowerCase();
-
-    const appParams = new URLSearchParams();
-    appParams.set('mode', mode);
-    appParams.set('origin', origin || 'admin');
-
-    // Wir leiten JEDEN Modus direkt an Google weiter – ohne blockierenden iFrame!
-    const zielUrl = WEBAPP_URL + '?' + appParams.toString();
-    window.location.replace(zielUrl);
-  </script>
-</body>
+  
 </html>
