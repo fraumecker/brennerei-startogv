@@ -31,10 +31,11 @@
 
     .app-frame {
       width: 100%;
-      height: calc(100vh + 80px);
+      /* Macht den Frame höher, um das Banner nach UNTEN wegzuschieben */
+      height: calc(100vh + 55px); 
       border: 0;
       position: absolute;
-      top: -80px;
+      top: 0; /* Bleibt oben bündig */
       left: 0;
       background: #ff00cc;
     }
@@ -63,7 +64,9 @@
 
 <body>
   <div class="app-frame-wrapper">
-    <iframe id="appFrame" class="app-frame" title="OGV Brenner"></iframe>
+    <iframe id="appFrame" class="app-frame" title="OGV Brenner"
+            sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-modals allow-downloads"
+            allow="storage-access"></iframe>
   </div>
 
   <div id="loadingCover" class="loading-cover">OGV wird geladen</div>
