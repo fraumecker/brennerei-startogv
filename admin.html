@@ -2,14 +2,19 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  >
 
   <title>OGV Admin</title>
 
   <link rel="manifest" href="admin-manifest.webmanifest">
   <link rel="icon" href="icon-512.png">
-  <meta name="theme-color" content="#ffffff">
-  <meta name="background-color" content="#ffffff">
+
+  <meta name="theme-color" content="#222222">
+  <meta name="background-color" content="#222222">
 
   <style>
     html,
@@ -18,26 +23,35 @@
       padding: 0;
       width: 100%;
       height: 100%;
+      min-height: 100%;
       overflow: hidden;
-      background: #ffffff;
+      background: #222222;
       font-family: Arial, sans-serif;
     }
 
     .app-frame-wrapper {
-      width: 100%;
-      height: 100vh;
-      overflow: hidden;
       position: fixed;
-      inset: 0;
-      background: #ffffff;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+
+      width: 100%;
+      height: 100dvh;
+
+      overflow: hidden;
+      background: #222222;
+
+      padding-bottom: max(32px, env(safe-area-inset-bottom));
+      box-sizing: border-box;
     }
 
     iframe {
       width: 100%;
-      height: 100%;
+      height: calc(100dvh - max(32px, env(safe-area-inset-bottom)));
       border: none;
       display: block;
-      background: #ffffff;
+      background: #222222;
     }
   </style>
 </head>
