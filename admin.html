@@ -3,35 +3,75 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>OGV Admin</title>
 
-  <script>
-    const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbw8wDAqfoUfqDwFcFz2mJyXPRVDcy1LWwmVrmQ_49Lx_x8_3KtjZovKxKc0WhF_3uTEyQ/exec';
+  <link rel="manifest" href="admin-manifest.webmanifest">
+  <link rel="icon" href="icon-512.png">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="background-color" content="#ffffff">
 
-    const params = new URLSearchParams(window.location.search);
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #ffffff;
+      font-family: Arial, sans-serif;
+    }
 
-    const allowedModes = new Set([
-      'admin',
-      'index',
-      'vorplanung',
-      'brandplanung',
-      'maischeannahme',
-      'brennfreigabe',
-      'leitstand',
-      'zollkontakte'
-    ]);
+    .app-frame-wrapper {
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      position: fixed;
+      inset: 0;
+      background: #ffffff;
+    }
 
-    const requestedMode = (params.get('mode') || 'admin').trim().toLowerCase();
-    const mode = allowedModes.has(requestedMode) ? requestedMode : 'admin';
-    const origin = (params.get('origin') || 'admin').trim().toLowerCase();
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+      background: #ffffff;
+    }
 
-    const appParams = new URLSearchParams();
-    appParams.set('mode', mode);
-    appParams.set('origin', origin || 'admin');
+    .fallback {
+      display: none;
+      padding: 24px;
+      font-size: 16px;
+      line-height: 1.5;
+    }
 
-    window.location.replace(WEBAPP_URL + '?' + appParams.toString());
-  </script>
+    .fallback a {
+      color: #0b57d0;
+      font-weight: bold;
+    }
+  </style>
 </head>
 
-<body></body>
+<body>
+  <div class="app-frame-wrapper">
+    <iframe
+      id="ogv-admin-frame"
+      src="https://script.google.com/macros/s/AKfycbw8wDAqfoUfqDwFcFz2mJyXPRVDcy1LWwmVrmQ_49Lx_x8_3KtjZovKxKc0WhF_3uTEyQ/exec?mode=admin"
+      title="OGV Admin"
+      allow="clipboard-read; clipboard-write"
+    ></iframe>
+  </div>
+
+  <noscript>
+    <div class="fallback">
+      JavaScript ist deaktiviert. Öffne den Admin direkt:
+      <br>
+      <a href="https://script.google.com/macros/s/AKfycbw8wDAqfoUfqDwFcFz2mJyXPRVDcy1LWwmVrmQ_49Lx_x8_3KtjZovKxKc0WhF_3uTEyQ/exec?mode=admin">
+        OGV Admin öffnen
+      </a>
+    </div>
+  </noscript>
+</body>
 </html>
