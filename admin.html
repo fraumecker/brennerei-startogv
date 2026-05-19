@@ -39,18 +39,6 @@
       display: block;
       background: #ffffff;
     }
-
-    .fallback {
-      display: none;
-      padding: 24px;
-      font-size: 16px;
-      line-height: 1.5;
-    }
-
-    .fallback a {
-      color: #0b57d0;
-      font-weight: bold;
-    }
   </style>
 </head>
 
@@ -58,20 +46,36 @@
   <div class="app-frame-wrapper">
     <iframe
       id="ogv-admin-frame"
-      src="https://script.google.com/macros/s/AKfycbw8wDAqfoUfqDwFcFz2mJyXPRVDcy1LWwmVrmQ_49Lx_x8_3KtjZovKxKc0WhF_3uTEyQ/exec?mode=admin"
       title="OGV Admin"
       allow="clipboard-read; clipboard-write"
     ></iframe>
   </div>
 
-  <noscript>
-    <div class="fallback">
-      JavaScript ist deaktiviert. Öffne den Admin direkt:
-      <br>
-      <a href="https://script.google.com/macros/s/AKfycbw8wDAqfoUfqDwFcFz2mJyXPRVDcy1LWwmVrmQ_49Lx_x8_3KtjZovKxKc0WhF_3uTEyQ/exec?mode=admin">
-        OGV Admin öffnen
-      </a>
-    </div>
-  </noscript>
+  <script>
+    const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbw8wDAqfoUfqDwFcFz2mJyXPRVDcy1LWwmVrmQ_49Lx_x8_3KtjZovKxKc0WhF_3uTEyQ/exec';
+
+    const params = new URLSearchParams(window.location.search);
+
+    const allowedModes = new Set([
+      'admin',
+      'vorplanung_admin',
+      'leitstand_admin',
+      'zollkontakte_admin',
+      'jahresarchiv_admin',
+      'vorgang'
+    ]);
+
+    const requestedMode = (params.get('mode') || 'admin').trim().toLowerCase();
+    const mode = allowedModes.has(requestedMode) ? requestedMode : 'admin';
+
+    const appParams = new URLSearchParams();
+    appParams.set('mode', mode);
+
+    if (mode === 'vorgang') {
+      appParams.set('origin', 'admin');
+    }
+
+    document.getElementById('ogv-admin-frame').src = WEBAPP_URL + '?' + appParams.toString();
+  </script>
 </body>
 </html>
