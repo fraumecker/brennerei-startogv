@@ -1,95 +1,30 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8">
+<style>
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #222222;
+    font-family: Arial, sans-serif;
+  }
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-  >
+  .app-frame-wrapper {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100dvh;
+    overflow: hidden;
+    background: #222222;
+    box-sizing: border-box;
+  }
 
-  <title>OGV Admin</title>
-
-  <link rel="manifest" href="admin-manifest.webmanifest">
-  <link rel="icon" href="icon-512.png">
-
-  <meta name="theme-color" content="#222222">
-  <meta name="background-color" content="#222222">
-
-  <style>
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      min-height: 100%;
-      overflow: hidden;
-      background: #222222;
-      font-family: Arial, sans-serif;
-    }
-
-    .app-frame-wrapper {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-
-      width: 100%;
-      height: 100dvh;
-
-      overflow: hidden;
-      background: #222222;
-
-      padding-bottom: max(32px, env(safe-area-inset-bottom));
-      box-sizing: border-box;
-    }
-
-    iframe {
-      width: 100%;
-      height: calc(100dvh - max(32px, env(safe-area-inset-bottom)));
-      border: none;
-      display: block;
-      background: #222222;
-    }
-  </style>
-</head>
-
-<body>
-  <div class="app-frame-wrapper">
-    <iframe
-      id="ogv-admin-frame"
-      title="OGV Admin"
-      allow="clipboard-read; clipboard-write"
-    ></iframe>
-  </div>
-
-  <script>
-    const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbw8wDAqfoUfqDwFcFz2mJyXPRVDcy1LWwmVrmQ_49Lx_x8_3KtjZovKxKc0WhF_3uTEyQ/exec';
-
-    const params = new URLSearchParams(window.location.search);
-
-    const allowedModes = new Set([
-      'admin',
-      'vorplanung_admin',
-      'leitstand_admin',
-      'zollkontakte_admin',
-      'jahresarchiv_admin',
-      'vorgang'
-    ]);
-
-    const requestedMode = (params.get('mode') || 'admin').trim().toLowerCase();
-    const mode = allowedModes.has(requestedMode) ? requestedMode : 'admin';
-
-    const appParams = new URLSearchParams();
-    appParams.set('mode', mode);
-
-    if (mode === 'vorgang') {
-      appParams.set('origin', 'admin');
-    }
-
-    document.getElementById('ogv-admin-frame').src = WEBAPP_URL + '?' + appParams.toString();
-  </script>
-</body>
-</html>
+  iframe {
+    width: 100%;
+    height: 100dvh;
+    border: none;
+    display: block;
+    background: #222222;
+  }
+</style>
