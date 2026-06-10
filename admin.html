@@ -3,14 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-
   <title>OGV Admin</title>
-
   <link rel="manifest" href="admin-manifest.webmanifest">
   <link rel="icon" href="icon-512.png">
   <meta name="theme-color" content="#ffffff">
   <meta name="background-color" content="#ffffff">
-
   <style>
     html,
     body {
@@ -25,7 +22,6 @@
       -webkit-overflow-scrolling: touch;
       overscroll-behavior-y: auto;
     }
-
     .app-frame-wrapper {
       width: 100%;
       min-height: 100dvh;
@@ -35,7 +31,6 @@
       padding: 0 0 calc(80px + env(safe-area-inset-bottom)) 0;
       box-sizing: border-box;
     }
-
     iframe {
       width: 100%;
       border: none;
@@ -45,7 +40,6 @@
     }
   </style>
 </head>
-
 <body>
   <div class="app-frame-wrapper">
     <iframe
@@ -55,59 +49,51 @@
       scrolling="no"
     ></iframe>
   </div>
-
   <script>
     const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbw8wDAqfoUfqDwFcFz2mJyXPRVDcy1LWwmVrmQ_49Lx_x8_3KtjZovKxKc0WhF_3uTEyQ/exec';
-
     const params = new URLSearchParams(window.location.search);
-
     const allowedModes = new Set([
       'admin',
       'vorplanung_admin',
       'leitstand_admin',
       'zollkontakte_admin',
       'jahresarchiv_admin',
-      'vorgang'
+      'vorgang',
+      'brandplanung'
     ]);
-
     const requestedMode = (params.get('mode') || 'admin').trim().toLowerCase();
     const mode = allowedModes.has(requestedMode) ? requestedMode : 'admin';
-
     const appParams = new URLSearchParams();
     appParams.set('mode', mode);
-
     if (mode === 'vorgang') {
       appParams.set('origin', 'admin');
     }
-
     const frame = document.getElementById('ogv-admin-frame');
     frame.src = WEBAPP_URL + '?' + appParams.toString();
 
     function setFrameHeight() {
       const isMobile = window.matchMedia('(max-width: 900px)').matches;
-
       const mobileHeights = {
         admin: 2200,
         vorplanung_admin: 4200,
         vorgang: 5600,
-        leitstand_admin: 7200,
+        leitstand_admin: 12000,
         zollkontakte_admin: 4200,
-        jahresarchiv_admin: 9000
+        jahresarchiv_admin: 9000,
+        brandplanung: 4200
       };
-
       const desktopHeights = {
         admin: 1600,
         vorplanung_admin: 2600,
         vorgang: 3800,
-        leitstand_admin: 5200,
+        leitstand_admin: 8000,
         zollkontakte_admin: 2800,
-        jahresarchiv_admin: 6200
+        jahresarchiv_admin: 6200,
+        brandplanung: 2800
       };
-
       const map = isMobile ? mobileHeights : desktopHeights;
       const viewport = window.visualViewport ? window.visualViewport.height : window.innerHeight;
       const fallback = Math.max(viewport + 1200, map[mode] || 4200);
-
       frame.style.height = fallback + 'px';
       frame.style.minHeight = fallback + 'px';
     }
