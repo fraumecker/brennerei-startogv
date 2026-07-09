@@ -47,12 +47,8 @@
     const requestedMode = (params.get('mode') || 'index').trim().toLowerCase();
     const mode = allowedModes.has(requestedMode) ? requestedMode : 'index';
     const appParams = new URLSearchParams();
-    if (mode !== 'index') {
-      appParams.set('mode', mode);
-    }
-    const targetUrl = appParams.toString()
-      ? WEBAPP_URL + '?' + appParams.toString()
-      : WEBAPP_URL;
+    appParams.set('mode', mode);
+    const targetUrl = WEBAPP_URL + '?' + appParams.toString();
     document.getElementById('fallback').href = targetUrl;
     window.location.replace(targetUrl);
   </script>
