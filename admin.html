@@ -9,47 +9,29 @@
   <meta name="theme-color" content="#ffffff">
   <meta name="background-color" content="#ffffff">
   <style>
-    html,
-    body {
+    html, body {
       margin: 0;
-      padding: 0;
-      width: 100%;
       min-height: 100%;
       background: #ffffff;
       font-family: Arial, sans-serif;
-      overflow-x: hidden;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      overscroll-behavior-y: auto;
     }
-    .app-frame-wrapper {
-      width: 100%;
-      min-height: 100dvh;
-      overflow: visible;
-      position: static;
-      background: #ffffff;
-      padding: 0 0 calc(80px + env(safe-area-inset-bottom)) 0;
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
       box-sizing: border-box;
     }
-    iframe {
-      width: 100%;
-      border: none;
-      display: block;
-      background: #ffffff;
-      overflow: visible;
+    a {
+      color: #1a5f2a;
+      font-weight: 700;
     }
   </style>
 </head>
 <body>
-  <div class="app-frame-wrapper">
-    <iframe
-      id="ogv-admin-frame"
-      title="OGV Admin"
-      allow="clipboard-read; clipboard-write"
-      scrolling="no"
-    ></iframe>
-  </div>
-  const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbwHI0lQdC5G2PaAPJ1wk7kxnRZNfOXCB5sYXP77PcthXR6lO9sYveeqtAEqSSsMANOfQQ/exec';
+  <p>Adminbereich wird geöffnet. <a id="fallback" href="#">Direkt öffnen</a></p>
+  <script>
+    const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbwHI0lQdC5G2PaAPJ1wk7kxnRZNfOXCB5sYXP77PcthXR6lO9sYveeqtAEqSSsMANOfQQ/exec';
     const params = new URLSearchParams(window.location.search);
     const allowedModes = new Set([
       'admin',
@@ -67,41 +49,9 @@
     if (mode === 'vorgang') {
       appParams.set('origin', 'admin');
     }
-    const frame = document.getElementById('ogv-admin-frame');
-    frame.src = WEBAPP_URL + '?' + appParams.toString();
-
-    function setFrameHeight() {
-      const isMobile = window.matchMedia('(max-width: 900px)').matches;
-      const mobileHeights = {
-        admin: 2200,
-        vorplanung_admin: 4200,
-        vorgang: 5600,
-        leitstand_admin: 12000,
-        zollkontakte_admin: 4200,
-        jahresarchiv_admin: 9000,
-        brandplanung: 4200
-      };
-      const desktopHeights = {
-        admin: 1600,
-        vorplanung_admin: 2600,
-        vorgang: 3800,
-        leitstand_admin: 8000,
-        zollkontakte_admin: 2800,
-        jahresarchiv_admin: 6200,
-        brandplanung: 2800
-      };
-      const map = isMobile ? mobileHeights : desktopHeights;
-      const viewport = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-      const fallback = Math.max(viewport + 1200, map[mode] || 4200);
-      frame.style.height = fallback + 'px';
-      frame.style.minHeight = fallback + 'px';
-    }
-
-    setFrameHeight();
-    window.addEventListener('resize', setFrameHeight);
-    window.addEventListener('orientationchange', function () {
-      setTimeout(setFrameHeight, 300);
-    });
+    const targetUrl = WEBAPP_URL + '?' + appParams.toString();
+    document.getElementById('fallback').href = targetUrl;
+    window.location.replace(targetUrl);
   </script>
 </body>
 </html>
