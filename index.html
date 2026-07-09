@@ -9,27 +9,41 @@
   <meta name="theme-color" content="#ffffff">
   <meta name="background-color" content="#ffffff">
   <style>
-    html, body {
+    html,
+    body {
       margin: 0;
-      min-height: 100%;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
       background: #ffffff;
       font-family: Arial, sans-serif;
     }
-    body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      box-sizing: border-box;
+    .app-frame-wrapper {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      background: #ffffff;
     }
-    a {
-      color: #1a5f2a;
-      font-weight: 700;
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+      background: #ffffff;
     }
   </style>
 </head>
 <body>
-  <p>Brennerei wird geöffnet. <a id="fallback" href="#">Direkt öffnen</a></p>
+  <div class="app-frame-wrapper">
+    <iframe
+      id="ogv-app-frame"
+      title="OGV Brennerei"
+      allow="clipboard-read; clipboard-write"
+    ></iframe>
+  </div>
   <script>
     const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbwHI0lQdC5G2PaAPJ1wk7kxnRZNfOXCB5sYXP77PcthXR6lO9sYveeqtAEqSSsMANOfQQ/exec';
     const params = new URLSearchParams(window.location.search);
@@ -48,9 +62,7 @@
     const mode = allowedModes.has(requestedMode) ? requestedMode : 'index';
     const appParams = new URLSearchParams();
     appParams.set('mode', mode);
-    const targetUrl = WEBAPP_URL + '?' + appParams.toString();
-    document.getElementById('fallback').href = targetUrl;
-    window.location.replace(targetUrl);
+    document.getElementById('ogv-app-frame').src = WEBAPP_URL + '?' + appParams.toString();
   </script>
 </body>
 </html>
